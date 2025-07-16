@@ -1,0 +1,179 @@
+/* レトロアーケードゲーム用のカスタムCSS */
+
+/* CRTエフェクト */
+.crt-effect {
+    background: 
+        linear-gradient(transparent 0%, rgba(32, 128, 32, 0.03) 50%, transparent 100%),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 0, 0.03) 2px,
+            rgba(0, 255, 0, 0.03) 4px
+        );
+    animation: flicker 0.15s infinite linear;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    98% { opacity: 1; }
+    99% { opacity: 0.98; }
+    100% { opacity: 1; }
+}
+
+/* グロー効果 */
+.glow {
+    text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px currentColor;
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.glow-border {
+    box-shadow: 
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor,
+        inset 0 0 10px currentColor;
+}
+
+@keyframes pulse-glow {
+    from {
+        text-shadow: 
+            0 0 5px currentColor,
+            0 0 10px currentColor,
+            0 0 15px currentColor,
+            0 0 20px currentColor;
+    }
+    to {
+        text-shadow: 
+            0 0 2px currentColor,
+            0 0 5px currentColor,
+            0 0 8px currentColor,
+            0 0 12px currentColor;
+    }
+}
+
+/* ゲームキャンバスのピクセルアート効果 */
+#game-canvas {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    background: radial-gradient(circle at center, #001100 0%, #000800 100%);
+}
+
+/* スコア表示のアニメーション */
+.score-popup {
+    animation: score-float 1s ease-out forwards;
+}
+
+@keyframes score-float {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* 被弾時の赤いフラッシュエフェクト */
+.flash-red {
+    animation: flash-damage 0.5s ease-in-out;
+}
+
+@keyframes flash-damage {
+    0%, 100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(180deg) saturate(2) brightness(1.5); }
+}
+
+/* ゲームオーバー時のエフェクト */
+.game-over-effect {
+    animation: game-over-shake 0.5s ease-in-out;
+}
+
+@keyframes game-over-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* UFOボーナス表示のアニメーション */
+.ufo-bonus-show {
+    animation: ufo-bonus-appear 2s ease-in-out;
+}
+
+@keyframes ufo-bonus-appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    #game-canvas {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    .glow {
+        font-size: 1.5rem;
+    }
+    
+    #score-panel {
+        font-size: 0.875rem;
+    }
+    
+    #controls {
+        font-size: 0.75rem;
+    }
+}
+
+/* 隠し要素のアニメーション */
+.fade-in {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-out {
+    animation: fade-out 0.5s ease-in-out;
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* 背景のグリッドエフェクト（オプション） */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+}

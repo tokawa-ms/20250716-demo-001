@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スペースインベーダー | レトロアーケードゲーム</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="description" content="80年代風スペースインベーダーゲーム。HTMLとJavaScriptで作られたレトロアーケードゲーム。">
+</head>
+<body class="bg-black text-green-400 font-mono overflow-hidden">
+    <!-- CRT エフェクト用のオーバーレイ -->
+    <div id="crt-overlay" class="fixed inset-0 pointer-events-none z-50 crt-effect"></div>
+    
+    <!-- ゲームコンテナ -->
+    <div class="flex flex-col items-center justify-center min-h-screen p-4">
+        <!-- ゲームタイトル -->
+        <div id="game-title" class="mb-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-center text-green-400 glow">
+                SPACE INVADERS
+            </h1>
+            <p class="text-center text-green-300 mt-2">Press SPACE to Start</p>
+        </div>
+
+        <!-- スコア表示 -->
+        <div id="score-panel" class="mb-4 flex justify-between w-full max-w-4xl text-lg">
+            <div class="flex space-x-8">
+                <div>SCORE: <span id="score" class="text-yellow-400">0</span></div>
+                <div>HI-SCORE: <span id="hi-score" class="text-yellow-400">0</span></div>
+            </div>
+            <div class="flex space-x-4">
+                <div>LIVES: <span id="lives" class="text-red-400">3</span></div>
+                <div>LEVEL: <span id="level" class="text-cyan-400">1</span></div>
+            </div>
+        </div>
+
+        <!-- ゲームキャンバス -->
+        <div class="relative border-2 border-green-400 glow-border">
+            <canvas id="game-canvas" width="800" height="600" class="bg-black"></canvas>
+            
+            <!-- ゲームオーバー画面 -->
+            <div id="game-over" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden">
+                <h2 class="text-4xl font-bold text-red-400 mb-4 glow">GAME OVER</h2>
+                <p class="text-lg text-green-300 mb-4">Final Score: <span id="final-score" class="text-yellow-400">0</span></p>
+                <p class="text-sm text-green-300">Press SPACE to Restart</p>
+            </div>
+
+            <!-- レベルクリア画面 -->
+            <div id="level-clear" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden">
+                <h2 class="text-4xl font-bold text-yellow-400 mb-4 glow">LEVEL CLEAR!</h2>
+                <p class="text-lg text-green-300 mb-4">Bonus: <span id="level-bonus" class="text-yellow-400">0</span></p>
+                <p class="text-sm text-green-300">Press SPACE for Next Level</p>
+            </div>
+
+            <!-- ポーズ画面 -->
+            <div id="pause-screen" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden">
+                <h2 class="text-4xl font-bold text-cyan-400 mb-4 glow">PAUSED</h2>
+                <p class="text-sm text-green-300">Press P to Resume</p>
+            </div>
+        </div>
+
+        <!-- 操作説明 -->
+        <div id="controls" class="mt-4 text-center text-sm text-green-300">
+            <p class="mb-1">← → : Move | SPACE : Fire | P : Pause</p>
+            <p>Destroy all invaders to advance to the next level!</p>
+        </div>
+
+        <!-- UFO ボーナス表示 -->
+        <div id="ufo-bonus" class="mt-2 text-center text-yellow-400 font-bold text-lg hidden glow">
+            UFO BONUS: <span id="ufo-points">0</span>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
